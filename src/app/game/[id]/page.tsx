@@ -6,8 +6,8 @@ import Label from "./components/Label";
 import GameCard from "@/components/GameCard";
 import { Metadata } from "next";
 
-// Interface usada para tipar as props recebidas pelo componente de rota
-interface Props {
+// Interface usada para tipar as GameDetailsProps recebidas pelo componente de rota
+interface GameDetailsProps {
   params: {
     id: string;
   };
@@ -16,7 +16,7 @@ interface Props {
 // Metadata dinâmica para SEO
 export const generateMetadata = async ({
   params,
-}: Props): Promise<Metadata> => {
+}: GameDetailsProps): Promise<Metadata> => {
   try {
     const response: IGame = await fetch(
       `${process.env.NEXT_API_URL}/next-api/?api=game&id=${params.id}`,
@@ -49,7 +49,7 @@ export const generateMetadata = async ({
 };
 
 // Componente da página do jogo
-const GameDetails = async ({ params }: Props) => {
+const GameDetails = async ({ params }: GameDetailsProps) => {
   const { id } = params;
   const game: IGame = await getGameData(id);
   const randomGame: IGame = await getRandomGame();
